@@ -38,4 +38,11 @@ export default {
       to: [{type: 'venue'}],
     },
   ],
+  orderings: [
+    {
+      title: 'Concert date',
+      name: 'concertDateDesc',
+      by: [{field: 'concertDate', direction: 'desc'}],
+    },
+  ]
 }
