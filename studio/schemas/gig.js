@@ -37,6 +37,12 @@ export default {
       type: 'reference',
       to: [{type: 'venue'}],
     },
+    {
+      title: 'Event',
+      name: 'event',
+      type: 'reference',
+      to: [{type: 'event'}],
+    },
   ],
   orderings: [
     {

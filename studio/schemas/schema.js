@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 import gig from './gig';
 import venue from './venue';
+import event from './event';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -16,5 +17,6 @@ export default createSchema({
   types: schemaTypes.concat([
     gig,
     venue,
+    event,
   ]),
 })
