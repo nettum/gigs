@@ -4,8 +4,8 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Artist / Band',
-      name: 'artist',
+      title: 'Title',
+      name: 'title',
       type: 'string',
       validation: Rule => Rule.required()
     },
@@ -14,7 +14,7 @@ export default {
       name: 'slug',
       type: 'slug',
       options: {
-        source: doc => `${doc.artist}-${doc.concertDate.slice(0, 10)}`,
+        source: doc => `${doc.title}-${doc.concertDate.slice(0, 10)}`,
       },
     },
     {
@@ -30,6 +30,15 @@ export default {
       options: {
         hotspot: true,
       }
+    },
+    {
+      title: 'Artist',
+      name: 'artist',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{type: 'artist'}]
+      }],
     },
     {
       title: 'Venue',
