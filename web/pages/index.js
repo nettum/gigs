@@ -2,11 +2,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 import client from '../client';
-import styles from '../styles/Home.module.css';
 
-export default function Home(gigs) {
+
+export default function Home(props) {
+  const { gigs } = props;
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Marius - Gigs</title>
         <meta name="description" content="A list of all the gigs I've attended" />
@@ -14,6 +15,21 @@ export default function Home(gigs) {
       </Head>
 
       <main>
+        {gigs.map(gig => {
+          return (
+            <div key={gig.slug}>
+              <small>
+              {new Intl.DateTimeFormat('nb-NO', {
+                month: '2-digit',
+                day: '2-digit',
+                year: 'numeric',
+              }).format(new Date(gig.concertDate))}
+              </small>
+              <h1>{gig.title}</h1>
+              <h2>{gig.event.name ? `${gig.event.name}, ${gig.venue.name}` : gig.venue.name}</h2>
+            </div>
+          );
+        })}
       </main>
     </div>
   )
@@ -41,7 +57,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      gigs,
+      gigs: gigs,
     },
   };
 }
