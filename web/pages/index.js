@@ -4,12 +4,12 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import client from '../client';
+import Gig from './../components/Gig';
 
 const Main = styled.main`
   margin: 0 auto;
   width: 100%;
   max-width: 800px;
-  background-color: red;
 `;
 
 export default function Home(props) {
@@ -20,24 +20,13 @@ export default function Home(props) {
         <title>Marius - Gigs</title>
         <meta name="description" content="A list of all the gigs I've attended" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
       </Head>
 
       <Main>
-        {gigs.map(gig => {
-          return (
-            <div key={gig.slug}>
-              <small>
-              {new Intl.DateTimeFormat('nb-NO', {
-                month: '2-digit',
-                day: '2-digit',
-                year: 'numeric',
-              }).format(new Date(gig.concertDate))}
-              </small>
-              <h1>{gig.title}</h1>
-              <h2>{gig.event.name ? `${gig.event.name}, ${gig.venue.name}` : gig.venue.name}</h2>
-            </div>
-          );
-        })}
+        {gigs.map(gig => <Gig gig={gig} key={gig.slug} />)}
       </Main>
     </div>
   )
