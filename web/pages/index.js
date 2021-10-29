@@ -1,8 +1,16 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
+import styled from 'styled-components';
+
 import client from '../client';
 
+const Main = styled.main`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  background-color: red;
+`;
 
 export default function Home(props) {
   const { gigs } = props;
@@ -14,7 +22,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <Main>
         {gigs.map(gig => {
           return (
             <div key={gig.slug}>
@@ -30,7 +38,7 @@ export default function Home(props) {
             </div>
           );
         })}
-      </main>
+      </Main>
     </div>
   )
 }
