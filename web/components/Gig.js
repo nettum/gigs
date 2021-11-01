@@ -1,37 +1,103 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import imageUrlBuilder from '@sanity/image-url'
+
+import client from '../client';
+const builder = imageUrlBuilder(client);
 
 const GigWrapper = styled.div`
-  text-align: center;
   padding: 1rem 0;
+  text-align: center;
+  transition: .2s;
+  &:hover {
+    background-color: #202020;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: inline-block;
+  &:hover {
+    color: red;
+  }
 `;
 
 const H1 = styled.h1`
+  position: relative;
   font-family: 'Anton', sans-serif;
-  font-size: 5em;
+  font-size: 6em;
+  line-height: 1.1em;
+  font-weight: 400;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  display: inline-block;
+  z-index: 1;
 `;
 
-const H2 = styled.h2`
-  font-size: 1.5em;
+const SubHeading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
 `;
 
 const Small = styled.small`
   font-size: 0.8em;
+  z-index: 1;
+`;
+
+const BackgroundImage = styled.div`
+  pointer-events: none;
+  display: none;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  ${ContentWrapper}:hover & {
+    display: block;
+  }
 `;
 
 export default function Gig(props) {
+  const [scrollPosition, setScrollPosition] = useState(0);
   const { gig } = props;
+
+  const imageSource = builder.image(gig.concertImage).width(1200);
+
+  const handleScroll = () => {
+    setScrollPosition(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      console.log('lol');
+        window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <GigWrapper>
-      <H1>{gig.title}</H1>
-      <H2>{gig.event.name ? `${gig.event.name}, ${gig.venue.name}` : gig.venue.name}</H2>
-      <Small>
-        {new Intl.DateTimeFormat('nb-NO', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
-        }).format(new Date(gig.concertDate))}
-      </Small>
+      <ContentWrapper>
+        <SubHeading>
+          <Small>
+            {new Intl.DateTimeFormat('nb-NO', {
+              month: '2-digit',
+              day: '2-digit',
+              year: 'numeric',
+            }).format(new Date(gig.concertDate))}
+          </Small>
+          <Small>
+            {gig.event.name ? `${gig.event.name} - ${gig.venue.name}` : gig.venue.name}
+          </Small>
+        </SubHeading>
+        <H1>
+          {gig.title}
+        </H1>
+        <BackgroundImage style={{ background: `url("${imageSource}") no-repeat center center fixed`, backgroundSize: 'cover', top: `${scrollPosition}px` }}/>
+      </ContentWrapper>
     </GigWrapper>
   );
 };

@@ -6,7 +6,7 @@ body {
     color: #fff;
 }
 
-html, body, h1, h2, h3, ul, ol, li {
+html, body, h1, h2, h3, ul, ol, li, small {
   padding: 0;
   margin: 0;
 }

@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 
 import styled from 'styled-components';
 
@@ -9,7 +8,6 @@ import Gig from './../components/Gig';
 const Main = styled.main`
   margin: 0 auto;
   width: 100%;
-  max-width: 800px;
 `;
 
 export default function Home(props) {
