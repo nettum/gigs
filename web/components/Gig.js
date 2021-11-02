@@ -16,8 +16,9 @@ const GigWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: inline-block;
+  color: #fdfd96;
   &:hover {
-    color: red;
+    color: #ffc40c;
     cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🤘</text></svg>") 16 0,auto;
   }
 `;
@@ -47,6 +48,7 @@ const Small = styled.small`
 
 const BackgroundImage = styled.div`
   pointer-events: none;
+  opacity: 0;
   display: none;
   width: 100%;
   height: 100%;
@@ -56,8 +58,23 @@ const BackgroundImage = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  animation: fadeIn .3s ease-in-out;
   ${ContentWrapper}:hover & {
     display: block;
+    opacity: 1;
+  }
+  @keyframes fadeIn {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    1% {
+      display: block;
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
