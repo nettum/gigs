@@ -55,16 +55,17 @@ const Small = styled.small`
 
 const BackgroundImage = styled.div`
   pointer-events: none;
-  opacity: 0;
   display: none;
+  opacity: 0;
+  position: fixed;
   width: 100%;
   height: 100%;
-  max-height: 100vh;
-  position: absolute;
-  top: 0;
   left: 0;
+  top: 0;
   right: 0;
   bottom: 0;
+  background-position: center center;
+  background-size: cover;
   animation: fadeIn .3s ease-in-out;
   ${ContentWrapper}:hover & {
     display: block;
@@ -86,22 +87,8 @@ const BackgroundImage = styled.div`
 `;
 
 export default function Gig(props) {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const { gig } = props;
-
   const imageSource = builder.image(gig.concertImage).width(1200);
-
-  const handleScroll = () => {
-    setScrollPosition(window.pageYOffset);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      console.log('lol');
-        window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <GigWrapper>
@@ -121,7 +108,7 @@ export default function Gig(props) {
         <H1>
           {gig.title}
         </H1>
-        <BackgroundImage style={{ background: `url("${imageSource}") no-repeat center center fixed`, backgroundSize: 'cover', top: `${scrollPosition}px` }}/>
+        <BackgroundImage style={{ backgroundImage: `url("${imageSource}")` }}/>
       </ContentWrapper>
     </GigWrapper>
   );
