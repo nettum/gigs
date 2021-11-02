@@ -8,6 +8,10 @@ import Gig from './../components/Gig';
 const Main = styled.main`
   margin: 0 auto;
   width: 100%;
+  padding: 0 1rem;
+  @media (min-width: 900px) {
+    padding: 0 0;
+  }
 `;
 
 export default function Home(props) {

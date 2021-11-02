@@ -9,13 +9,17 @@ const GigWrapper = styled.div`
   padding: 1rem 0;
   text-align: center;
   transition: .2s;
+  user-select: none;
+  overflow: hidden;
   &:hover {
     background-color: #202020;
   }
 `;
 
 const ContentWrapper = styled.div`
-  display: inline-block;
+  @media (min-width: 900px) {
+    display: inline-block;
+  }
   color: #fdfd96;
   &:hover {
     color: #ffc40c;
@@ -26,13 +30,16 @@ const ContentWrapper = styled.div`
 const H1 = styled.h1`
   position: relative;
   font-family: 'Anton', sans-serif;
-  font-size: 6em;
+  font-size: 3em;
   line-height: 1.1em;
   font-weight: 400;
   border-top: 1px solid;
   border-bottom: 1px solid;
-  display: inline-block;
   z-index: 1;
+  @media (min-width: 900px) {
+    display: inline-block;
+    font-size: 6em;
+  }
 `;
 
 const SubHeading = styled.div`
