@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   padding: 0 1rem;
+  color: #fdfd96;
   @media (min-width: 900px) {
     padding: 0 0;
   }
@@ -22,7 +23,7 @@ const Header = styled.header`
     padding: 1rem;
     left: 0;
     top: 0;
-    z-index: 3;
+    z-index: 1;
   }
 
 `;
