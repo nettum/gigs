@@ -17,12 +17,18 @@ const Wrapper = styled.div`
 `;
 const Header = styled.header`
   font-size: 2em;
-  margin: 1rem;
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 2rem);
+  & .numGigs {
+    position: absolute;
+    padding: 1rem;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+
 `;
-const Main = styled.main``;
+const Main = styled.main`
+  padding-top: 4rem;
+`;
 
 export default function Home(props) {
   const { gigs: allGigs, artists, venues, events } = props;
@@ -59,7 +65,7 @@ export default function Home(props) {
 
       <Wrapper>
         <Header>
-          <div># gigs: {gigs.length}</div>
+          <div className="numGigs"># gigs: {gigs.length}</div>
           <Filter artists={artists} venues={venues} events={events} onSetFilter={handleFilter} />
         </Header>
         <Main>
