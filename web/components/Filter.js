@@ -69,7 +69,7 @@ export default function Filter(props) {
 
   return (
     <>
-      <Button className={`main-btn ${isOpen ? 'open' : ''}`} onClick={handleClick}>{isOpen ? '-' : '+'} Filter</Button>
+      <Button className={`main-btn ${isOpen ? 'open' : ''}`} onClick={handleClick}>{isOpen ? '-' : '+'} filter</Button>
       {isOpen && (
         <FilterWrapper>
           <div className="list">
