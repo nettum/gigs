@@ -16,6 +16,7 @@ const FilterWrapper = styled.div`
     font-size: 0.5em;
   }
   & .heading {
+    font-size: 0.7em;
     margin-bottom: 0.5rem;
   }
   @media (min-width: 900px) {
@@ -44,6 +45,7 @@ const Button = styled.button`
     }
   }
   &.filter-btn {
+    padding: 0.4rem;
     background-color: #ffc40c;
     border: 1px solid #202124;
     border-radius: 5px;
@@ -73,12 +75,12 @@ export default function Filter(props) {
       {isOpen && (
         <FilterWrapper>
           <div className="list">
-            <Button className="filter-btn" onClick={() => handleSetFilter(null)}>Remove filter</Button>
+            <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
           </div>
           <div>
-            <div className="heading">Artist:</div>
+            <div className="heading">Event:</div>
             <div className="list">
-              {artists.map(artist => <Button className="filter-btn" onClick={() => handleSetFilter('artist', artist.slug)}>{artist.name}</Button>)}
+              {events.map(event => <Button className="filter-btn" onClick={() => handleSetFilter('event', event.slug)}>{event.name}</Button>)}
             </div>
           </div>
           <div>
@@ -88,9 +90,9 @@ export default function Filter(props) {
             </div>
           </div>
           <div>
-            <div className="heading">Event:</div>
+            <div className="heading">Artist:</div>
             <div className="list">
-              {events.map(event => <Button className="filter-btn" onClick={() => handleSetFilter('event', event.slug)}>{event.name}</Button>)}
+              {artists.map(artist => <Button className="filter-btn" onClick={() => handleSetFilter('artist', artist.slug)}>{artist.name}</Button>)}
             </div>
           </div>
         </FilterWrapper>

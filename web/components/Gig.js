@@ -37,7 +37,6 @@ const H1 = styled.h1`
   border-bottom: 1px solid;
   z-index: 1;
   @media (min-width: 900px) {
-    display: inline-block;
     font-size: 6em;
   }
 `;
@@ -51,6 +50,9 @@ const SubHeading = styled.div`
 const Small = styled.small`
   font-size: 0.8em;
   z-index: 1;
+  &:first-child {
+    margin-right: 1rem;
+  }
 `;
 
 const BackgroundImage = styled.div`
