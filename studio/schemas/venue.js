@@ -16,5 +16,11 @@ export default {
         source: 'name',
       },
     },
+    {
+      title: 'Festival venue?',
+      name: 'festivalVenue',
+      type: 'boolean',
+      description: 'Festival venues will not show up in the venue filter',
+    },
   ],
 }
