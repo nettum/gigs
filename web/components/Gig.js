@@ -90,7 +90,7 @@ const BackgroundImage = styled.div`
 
 export default function Gig(props) {
   const { gig } = props;
-  const imageSource = builder.image(gig.concertImage).width(1200);
+  const imageSource = gig.concertImage ? builder.image(gig.concertImage).width(1200) : null;
 
   return (
     <GigWrapper>
@@ -110,7 +110,7 @@ export default function Gig(props) {
         <H1>
           {gig.title}
         </H1>
-        <BackgroundImage style={{ backgroundImage: `url("${imageSource}")` }}/>
+        {imageSource ? <BackgroundImage style={{ backgroundImage: `url("${imageSource}")` }}/> : null}
       </ContentWrapper>
     </GigWrapper>
   );
