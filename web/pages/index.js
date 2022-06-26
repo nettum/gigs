@@ -102,7 +102,7 @@ export async function getStaticProps(context) {
     }
   `;
   const allVenuesQuery = `
-    *[_type == "venue"]|order(name asc) {
+    *[_type == "venue" && festivalVenue != true]|order(name asc) {
       name,
       "slug": slug.current
     }
