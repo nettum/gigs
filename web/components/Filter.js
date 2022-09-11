@@ -57,7 +57,13 @@ const Button = styled.button`
 `;
 
 export default function Filter(props) {
-  const { artists, venues, events, onSetFilter } = props;
+  const {
+    artists,
+    venues,
+    events,
+    onSetFilter,
+    years
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -69,6 +75,7 @@ export default function Filter(props) {
     setIsOpen(false);
   };
 
+
   return (
     <>
       <Button className={`main-btn ${isOpen ? 'open' : ''}`} onClick={handleClick}>{isOpen ? '-' : '+'} filter</Button>
@@ -78,21 +85,27 @@ export default function Filter(props) {
             <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
           </div>
           <div>
+            <div className="heading">Year:</div>
+            <div className="list">
+              {years.map(year => <Button key={`year-${year}`} className="filter-btn" onClick={() => handleSetFilter('year', year)}>{year}</Button>)}
+            </div>
+          </div>
+          <div>
             <div className="heading">Event:</div>
             <div className="list">
-              {events.map(event => <Button className="filter-btn" onClick={() => handleSetFilter('event', event.slug)}>{event.name}</Button>)}
+              {events.map(event => <Button key={`event-${event.slug}`} className="filter-btn" onClick={() => handleSetFilter('event', event.slug)}>{event.name}</Button>)}
             </div>
           </div>
           <div>
             <div className="heading">Venue:</div>
             <div className="list">
-              {venues.map(venue => <Button className="filter-btn" onClick={() => handleSetFilter('venue', venue.slug)}>{venue.name}</Button>)}
+              {venues.map(venue => <Button key={`venue-${venue.slug}`} className="filter-btn" onClick={() => handleSetFilter('venue', venue.slug)}>{venue.name}</Button>)}
             </div>
           </div>
           <div>
             <div className="heading">Artist:</div>
             <div className="list">
-              {artists.map(artist => <Button className="filter-btn" onClick={() => handleSetFilter('artist', artist.slug)}>{artist.name}</Button>)}
+              {artists.map(artist => <Button key={`artist-${artist.slug}`} className="filter-btn" onClick={() => handleSetFilter('artist', artist.slug)}>{artist.name}</Button>)}
             </div>
           </div>
         </FilterWrapper>
