@@ -29,7 +29,13 @@ const Main = styled.main`
 `;
 
 export default function Home(props) {
-  const { gigs: allGigs, artists, venues, events } = props;
+  const {
+    gigs: allGigs,
+    artists,
+    venues,
+    events,
+    yearList
+  } = props;
   const [ gigs, setGigs ] = useState(allGigs);
 
   const handleFilter = (type, value) => {
@@ -44,6 +50,9 @@ export default function Home(props) {
       case 'event':
         filter = allGigs.filter(gig => gig.event.slug === value);
         break;
+        case 'year':
+          filter = allGigs.filter(gig => gig.concertDate.substring(0, 4) === value.toString());
+          break;
       default:
         filter = allGigs;
     }
@@ -64,7 +73,7 @@ export default function Home(props) {
       <Wrapper>
         <Header>
           <div className="numGigs"># gigs: {gigs.length}</div>
-          <Filter artists={artists} venues={venues} events={events} onSetFilter={handleFilter} />
+          <Filter artists={artists} venues={venues} events={events} years={yearList} onSetFilter={handleFilter} />
         </Header>
         <Main>
           {gigs.map(gig => <Gig gig={gig} key={gig.slug} />)}
@@ -121,12 +130,21 @@ export async function getStaticProps(context) {
     client.fetch(allEventsQuery)
   ]);
 
+  const maxYear = new Date().getFullYear();
+  const minYear = gigs.length > 0 ? gigs[gigs.length - 1].concertDate.substring(0, 4) : maxYear;
+
+  let yearList = [];
+  for (var i = maxYear; i >= minYear; i--) {
+      yearList.push(i);
+  }
+
   return {
     props: {
       gigs,
       artists,
       venues,
       events,
+      yearList,
     },
   };
 }
