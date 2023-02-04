@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 const FilterWrapper = styled.div`
   position: absolute;
+  height: 100%;
   right: 0;
-  width: 100%;
-  min-height: 100vh;
   background-color: #fff;
   color: #202124;
   z-index: 2;
   padding: 4rem 2rem;
+  font-size: 2em;
   & .list {
     display: flex;
     flex-wrap: wrap;
@@ -20,8 +20,7 @@ const FilterWrapper = styled.div`
     margin-bottom: 0.5rem;
   }
   @media (min-width: 900px) {
-    width: 50%;
-    padding: 4rem;
+      padding: 4rem 10rem;
   }
 `;
 
@@ -40,6 +39,7 @@ const Button = styled.button`
     right: 0;
     top: 0;
     z-index: 3;
+    font-size: 2em;
     &.open {
       color: #202124;
     }
