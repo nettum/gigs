@@ -8,13 +8,15 @@ import Filter from './../components/Filter';
 import Gig from './../components/Gig';
 
 const Wrapper = styled.div`
+  position: relative;
   margin: 0 auto;
   width: 100%;
+  min-height: 100vh;
   padding: 0 1rem;
   color: #fdfd96;
 `;
 const Header = styled.header`
-  font-size: 2em;
+  font-size: 1.25em;
   & .numGigs {
     position: absolute;
     padding: 1rem;
@@ -71,9 +73,9 @@ export default function Home(props) {
       </Head>
 
       <Wrapper>
+        <Filter artists={artists} venues={venues} events={events} years={yearList} onSetFilter={handleFilter} />
         <Header>
           <div className="numGigs"># gigs: {gigs.length}</div>
-          <Filter artists={artists} venues={venues} events={events} years={yearList} onSetFilter={handleFilter} />
         </Header>
         <Main>
           {gigs.map(gig => <Gig gig={gig} key={gig.slug} />)}
