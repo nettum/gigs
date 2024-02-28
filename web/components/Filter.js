@@ -4,23 +4,27 @@ import styled from 'styled-components';
 const FilterWrapper = styled.div`
   position: absolute;
   height: 100%;
+  overflow: auto;
   right: 0;
   background-color: #fff;
   color: #202124;
   z-index: 2;
   padding: 4rem 2rem;
-  font-size: 2em;
+  font-size: 1.8em;
+  & .filter-wrapper-item {
+    margin: 1rem 0;
+  }
   & .list {
     display: flex;
     flex-wrap: wrap;
     font-size: 0.5em;
   }
   & .heading {
-    font-size: 0.7em;
+    font-size: 0.6em;
     margin-bottom: 0.5rem;
   }
   @media (min-width: 900px) {
-      padding: 4rem 10rem;
+    padding: 4rem 10rem;
   }
 `;
 
@@ -39,7 +43,7 @@ const Button = styled.button`
     right: 0;
     top: 0;
     z-index: 3;
-    font-size: 2em;
+    font-size: 1.25em;
     &.open {
       color: #202124;
     }
@@ -84,25 +88,25 @@ export default function Filter(props) {
           <div className="list">
             <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
           </div>
-          <div>
+          <div className="filter-wrapper-item">
             <div className="heading">Year:</div>
             <div className="list">
               {years.map(year => <Button key={`year-${year}`} className="filter-btn" onClick={() => handleSetFilter('year', year)}>{year}</Button>)}
             </div>
           </div>
-          <div>
+          <div className="filter-wrapper-item">
             <div className="heading">Event:</div>
             <div className="list">
               {events.map(event => <Button key={`event-${event.slug}`} className="filter-btn" onClick={() => handleSetFilter('event', event.slug)}>{event.name}</Button>)}
             </div>
           </div>
-          <div>
+          <div className="filter-wrapper-item">
             <div className="heading">Venue:</div>
             <div className="list">
               {venues.map(venue => <Button key={`venue-${venue.slug}`} className="filter-btn" onClick={() => handleSetFilter('venue', venue.slug)}>{venue.name}</Button>)}
             </div>
           </div>
-          <div>
+          <div className="filter-wrapper-item">
             <div className="heading">Artist:</div>
             <div className="list">
               {artists.map(artist => <Button key={`artist-${artist.slug}`} className="filter-btn" onClick={() => handleSetFilter('artist', artist.slug)}>{artist.name}</Button>)}

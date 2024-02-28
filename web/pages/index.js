@@ -11,13 +11,12 @@ const Wrapper = styled.div`
   position: relative;
   margin: 0 auto;
   width: 100%;
-  height: 100%;
   min-height: 100vh;
   padding: 0 1rem;
   color: #fdfd96;
 `;
 const Header = styled.header`
-  font-size: 2em;
+  font-size: 1.25em;
   & .numGigs {
     position: absolute;
     padding: 1rem;
