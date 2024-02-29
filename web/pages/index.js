@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   padding: 0 1rem;
   color: #fdfd96;
+  overflow: hidden;
 `;
 const Header = styled.header`
   font-size: 1.25em;

@@ -4,14 +4,42 @@ import styled from 'styled-components';
 const FilterWrapper = styled.div`
   position: absolute;
   height: 100%;
-  overflow: auto;
-  right: 0;
+  overflow: hidden;
+  left: 100vw;
+  width: 100vw;
   background-color: #fff;
   color: #202124;
   z-index: 2;
   padding: 4rem 2rem;
   font-size: 1.8em;
+  opacity: 0;
+  &.open {
+    left: 0;
+    transition: left .2s ease-out;
+    transition: opacity .1s ease-in;
+    opacity: 1;
+    & .filter-wrapper-item {
+      opacity: 1;
+      transition: opacity .3s ease-in;
+    }
+    & .filter-wrapper-item:nth-child(1) {
+      transition-delay: .15s;
+    }
+    & .filter-wrapper-item:nth-child(2) {
+      transition-delay: .2s;
+    }
+    & .filter-wrapper-item:nth-child(3) {
+      transition-delay: .25s;
+    }
+    & .filter-wrapper-item:nth-child(4) {
+      transition-delay: .3s;
+    }
+    & .filter-wrapper-item:nth-child(5) {
+      transition-delay: .35s;
+    }
+  }
   & .filter-wrapper-item {
+    opacity: 0;
     margin: 1rem 0;
   }
   & .list {
@@ -83,11 +111,12 @@ export default function Filter(props) {
   return (
     <>
       <Button className={`main-btn ${isOpen ? 'open' : ''}`} onClick={handleClick}>{isOpen ? '-' : '+'} filter</Button>
-      {isOpen && (
-        <FilterWrapper>
+        <FilterWrapper className={isOpen ? 'open' : ''}>
+        <div className="filter-wrapper-item">
           <div className="list">
             <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
           </div>
+        </div>
           <div className="filter-wrapper-item">
             <div className="heading">Year:</div>
             <div className="list">
@@ -113,8 +142,6 @@ export default function Filter(props) {
             </div>
           </div>
         </FilterWrapper>
-      )}
-
     </>
   );
 };
