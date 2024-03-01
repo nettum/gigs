@@ -5,6 +5,7 @@ const FilterWrapper = styled.div`
   position: absolute;
   height: 100%;
   overflow: hidden;
+  overflow-y: scroll;
   left: 100vw;
   width: 100vw;
   background-color: #fff;
@@ -112,11 +113,11 @@ export default function Filter(props) {
     <>
       <Button className={`main-btn ${isOpen ? 'open' : ''}`} onClick={handleClick}>{isOpen ? '-' : '+'} filter</Button>
         <FilterWrapper className={isOpen ? 'open' : ''}>
-        <div className="filter-wrapper-item">
-          <div className="list">
-            <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
+          <div className="filter-wrapper-item">
+            <div className="list">
+              <Button className="filter-btn delete" onClick={() => handleSetFilter(null)}>Remove filter</Button>
+            </div>
           </div>
-        </div>
           <div className="filter-wrapper-item">
             <div className="heading">Year:</div>
             <div className="list">
