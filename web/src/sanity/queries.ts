@@ -22,21 +22,21 @@ const allGigsQuery = `
 `;
 
 const allArtistsQuery = `
-*[_type == "artist"]|order(name asc) {
+*[_type == "artist"]|order(lower(name) asc) {
   name,
   "slug": slug.current
 }
 `;
 
 const allVenuesQuery = `
-*[_type == "venue" && festivalVenue != true]|order(name asc) {
+*[_type == "venue" && festivalVenue != true]|order(lower(name) asc) {
   name,
   "slug": slug.current
 }
 `;
 
 const allEventsQuery = `
-*[_type == "event"]|order(name asc) {
+*[_type == "event"]|order(lower(name) asc) {
   name,
   "slug": slug.current
 }
@@ -59,5 +59,13 @@ export async function getAllVenues() {
 
 export async function getAllEvents() {
   const data = await client.fetch<EventType[]>(allEventsQuery);
-  return data;
+  const sortedData = data.sort((a, b) => {
+    const nameAWithoutYear = a.name.replace(/\d{4}$/g, '');
+    const nameBWithoutYear = b.name.replace(/\d{4}$/g, '');
+    if (nameAWithoutYear.toLowerCase() === nameBWithoutYear.toLowerCase()) {
+      return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1;
+    }
+    return 0;
+  });
+  return sortedData;
 }

@@ -1,63 +1,67 @@
 export default {
-  title: 'Gig',
-  name: 'gig',
-  type: 'document',
+  title: "Gig",
+  name: "gig",
+  type: "document",
   fields: [
     {
-      title: 'Title',
-      name: 'title',
-      type: 'string',
-      validation: Rule => Rule.required()
+      title: "Title",
+      name: "title",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Slug',
-      name: 'slug',
-      type: 'slug',
+      title: "Slug",
+      name: "slug",
+      type: "slug",
       options: {
-        source: doc => `${doc.title}-${doc.concertDate.slice(0, 10)}`,
+        source: (doc) => `${doc.title}-${doc.concertDate.slice(0, 10)}`,
       },
     },
     {
-      title: 'Concert date',
-      name: 'concertDate',
-      type: 'datetime',
-      validation: Rule => Rule.required()
+      title: "Concert date",
+      name: "concertDate",
+      type: "datetime",
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Concert image',
-      name: 'concertImage',
-      type: 'image',
+      title: "Concert image",
+      name: "concertImage",
+      type: "image",
       options: {
         hotspot: true,
-      }
+      },
     },
     {
-      title: 'Artist',
-      name: 'artist',
-      type: 'array',
-      of: [{
-        type: 'reference',
-        to: [{type: 'artist'}]
-      }],
+      title: "Artist",
+      name: "artist",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "artist" }],
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Venue',
-      name: 'venue',
-      type: 'reference',
-      to: [{type: 'venue'}],
+      title: "Venue",
+      name: "venue",
+      type: "reference",
+      to: [{ type: "venue" }],
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Event',
-      name: 'event',
-      type: 'reference',
-      to: [{type: 'event'}],
+      title: "Event",
+      name: "event",
+      type: "reference",
+      to: [{ type: "event" }],
     },
   ],
   orderings: [
     {
-      title: 'Concert date',
-      name: 'concertDateDesc',
-      by: [{field: 'concertDate', direction: 'desc'}],
+      title: "Concert date",
+      name: "concertDateDesc",
+      by: [{ field: "concertDate", direction: "desc" }],
     },
-  ]
-}
+  ],
+};
