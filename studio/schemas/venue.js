@@ -1,26 +1,28 @@
 export default {
-  title: 'Venue',
-  name: 'venue',
-  type: 'document',
+  title: "Venue",
+  name: "venue",
+  type: "document",
   fields: [
     {
-      title: 'Name',
-      name: 'name',
-      type: 'string',
+      title: "Name",
+      name: "name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Slug',
-      name: 'slug',
-      type: 'slug',
+      title: "Slug",
+      name: "slug",
+      type: "slug",
       options: {
-        source: 'name',
+        source: "name",
       },
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Festival venue?',
-      name: 'festivalVenue',
-      type: 'boolean',
-      description: 'Festival venues will not show up in the venue filter',
+      title: "Festival venue?",
+      name: "festivalVenue",
+      type: "boolean",
+      description: "Festival venues will not show up in the venue filter",
     },
   ],
-}
+};
