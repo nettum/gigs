@@ -2,19 +2,21 @@
 
 import { useState } from 'react';
 import { ArtistType, EventType, VenueType } from '@/types';
+import HamburgerIcon from '@/components/icons/HamburgerIcon';
+import XIcon from '@/components/icons/XIcon';
 
 type Props = {
   artists: ArtistType[];
   events: EventType[];
   venues: VenueType[];
   years: number[];
-  onSetFilter: (filter?: string, value?: string) => void;
+  onSetFilter: (filter: string, value: string) => void;
 };
 
 export default function Menu({ artists, events, venues, years, onSetFilter }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSetFilter = (type?: string, value?: string) => {
+  const handleSetFilter = (type: string, value: string) => {
     onSetFilter(type, value);
     setIsOpen(false);
   };
@@ -23,23 +25,24 @@ export default function Menu({ artists, events, venues, years, onSetFilter }: Pr
     <>
       <button
         className={`
-          absolute right-0 top-0 p-4 md:px-8 text-base cursor-pointer z-30
+          cursor-pointer z-30
           ${isOpen ? 'text-zinc-900' : ''}
           `}
         onClick={() => setIsOpen(!isOpen)}>
-        menu
+        {isOpen ? <XIcon /> : <HamburgerIcon />}
       </button>
+
       <nav
         className={`
         absolute h-full w-lvw overflow-hidden overflow-y-scroll
         bg-white text-zinc-900 z-20 py-16 lg:px-40 px-8 text-2xl opacity-0 menu-transition
-        ${isOpen ? 'left-0 opacity-100 ' : 'left-full'}`}>
+        ${isOpen ? 'top-0 left-0 opacity-100 ' : 'left-full'}`}>
         <div
           className={`opacity-0 my-4 ${
             isOpen ? 'opacity-100 transition-opacity duration-300 ease-in delay-150' : ''
           }`}>
           <div className="flex flex-wrap text-sm gap-4">
-            <button className="menu-button" onClick={() => handleSetFilter()}>
+            <button className="menu-button" onClick={() => handleSetFilter('reset', '')}>
               Remove filter
             </button>
           </div>
