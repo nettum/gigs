@@ -11,6 +11,8 @@ export type VenueType = {
 export type EventType = {
   name: string;
   slug: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 type ImageType = {
