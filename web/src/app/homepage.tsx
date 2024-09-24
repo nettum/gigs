@@ -68,9 +68,7 @@ export default function Homepage(props: HomePageProps) {
 
   const maxYear = new Date().getFullYear();
   const minYear =
-    props.gigs.length > 0
-      ? Number(props.gigs[props.gigs.length - 1].concertDate.substring(0, 4))
-      : maxYear;
+    allGigs.length > 0 ? Number(allGigs[allGigs.length - 1].concertDate.substring(0, 4)) : maxYear;
 
   let yearList: number[] = [];
   for (var i = maxYear; i >= minYear; i--) {
