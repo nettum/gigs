@@ -32,3 +32,5 @@ export type GigType = {
   venue: VenueType;
   event: EventType | null;
 };
+
+export type FilterType = 'artist' | 'venue' | 'event' | 'year' | 'search' | 'none';

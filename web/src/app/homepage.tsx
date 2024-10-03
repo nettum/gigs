@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Gigs from '@/components/Gigs';
 import Menu from '@/components/Menu';
 import Search from '@/components/Search';
-import { ArtistType, EventType, GigType, VenueType } from '@/types';
+import { ArtistType, EventType, FilterType, GigType, VenueType } from '@/types';
 
 type HomePageProps = {
   artists: ArtistType[];
@@ -14,18 +15,33 @@ type HomePageProps = {
 };
 
 export default function Homepage(props: HomePageProps) {
-  const [filter, setFilter] = useState<{
-    type: string;
-    value: string;
-  }>({
-    type: '',
-    value: '',
-  });
   const { artists, venues, events, gigs: allGigs } = props;
 
-  const filterGigs = useCallback((gigs: GigType[], type: string, value: string) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const artist = searchParams.get('artist');
+  const venue = searchParams.get('venue');
+  const event = searchParams.get('event');
+  const year = searchParams.get('year');
+  const search = searchParams.get('search');
+
+  const [filter, setFilter] = useState<{
+    type: FilterType;
+    value: string;
+  }>(() => {
+    if (artist) return { type: 'artist', value: artist };
+    if (venue) return { type: 'venue', value: venue };
+    if (event) return { type: 'event', value: event };
+    if (year) return { type: 'year', value: year };
+    if (search) return { type: 'search', value: search };
+
+    return { type: 'none', value: '' };
+  });
+
+  const filterGigs = useCallback((gigs: GigType[], type: FilterType, value: string) => {
     let filteredGigs: GigType[] = [];
-    switch (type) {
+    switch (type as FilterType) {
       case 'artist':
         filteredGigs = gigs.filter((gig) => gig.artists.some((artist) => artist.slug === value));
         break;
@@ -45,11 +61,11 @@ export default function Homepage(props: HomePageProps) {
             gig.artists.some((artist) => artist.name.toLowerCase().includes(lowercaseTerm)) ||
             (gig.event?.name.toLowerCase().includes(lowercaseTerm) ?? false) ||
             gig.venue.name.toLowerCase().includes(lowercaseTerm) ||
-            (gig.title.toLowerCase().includes(lowercaseTerm) ?? false)
+            gig.title.toLowerCase().includes(lowercaseTerm)
           );
         });
         break;
-      case 'reset':
+      case 'none':
         filteredGigs = gigs;
         break;
     }
@@ -62,9 +78,17 @@ export default function Homepage(props: HomePageProps) {
     [allGigs, filter, filterGigs]
   );
 
-  const handleFilter = useCallback((type: string, value: string) => {
-    setFilter({ type, value });
-  }, []);
+  const handleFilter = useCallback(
+    (type: FilterType, value: string) => {
+      if (type === 'none') {
+        router.push('/');
+      } else {
+        router.push(`/?${type}=${encodeURIComponent(value)}`);
+      }
+      setFilter({ type, value });
+    },
+    [router]
+  );
 
   const maxYear = new Date().getFullYear();
   const minYear =

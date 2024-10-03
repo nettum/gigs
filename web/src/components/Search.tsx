@@ -4,9 +4,10 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDebounce } from '@uidotdev/usehooks';
 import SearchIcon from '@/components/icons/SearchIcon';
 import XIcon from '@/components/icons/XIcon';
+import { FilterType } from '@/types';
 
 type SearchProps = {
-  onSearch: (type: string, value: string) => void;
+  onSearch: (type: FilterType, value: string) => void;
 };
 
 export default function Search({ onSearch }: SearchProps) {
@@ -20,12 +21,12 @@ export default function Search({ onSearch }: SearchProps) {
   }, []);
 
   useEffect(() => {
-    onSearch('search', debouncedSearchTerm);
+    if (debouncedSearchTerm) onSearch('search', debouncedSearchTerm);
   }, [debouncedSearchTerm, onSearch]);
 
   const handleReset = useCallback(() => {
     setSearchTerm('');
-    onSearch('reset', '');
+    onSearch('none', '');
   }, [onSearch]);
 
   useEffect(() => {
