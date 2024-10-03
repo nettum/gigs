@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArtistType, EventType, VenueType } from '@/types';
+import { ArtistType, EventType, FilterType, VenueType } from '@/types';
 import HamburgerIcon from '@/components/icons/HamburgerIcon';
 import XIcon from '@/components/icons/XIcon';
 
@@ -10,13 +10,13 @@ type Props = {
   events: EventType[];
   venues: VenueType[];
   years: number[];
-  onSetFilter: (filter: string, value: string) => void;
+  onSetFilter: (filter: FilterType, value: string) => void;
 };
 
 export default function Menu({ artists, events, venues, years, onSetFilter }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSetFilter = (type: string, value: string) => {
+  const handleSetFilter = (type: FilterType, value: string) => {
     onSetFilter(type, value);
     setIsOpen(false);
   };
@@ -42,7 +42,7 @@ export default function Menu({ artists, events, venues, years, onSetFilter }: Pr
             isOpen ? 'opacity-100 transition-opacity duration-300 ease-in delay-150' : ''
           }`}>
           <div className="flex flex-wrap text-sm gap-4">
-            <button className="menu-button" onClick={() => handleSetFilter('reset', '')}>
+            <button className="menu-button" onClick={() => handleSetFilter('none', '')}>
               Remove filter
             </button>
           </div>
