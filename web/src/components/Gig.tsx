@@ -2,6 +2,7 @@ import { GigType } from '@/types';
 import { Anton } from 'next/font/google';
 import imageUrlBuilder from '@sanity/image-url';
 import client from '../sanity/client';
+import Image from 'next/image';
 
 const inter = Anton({ weight: '400', subsets: ['latin'] });
 const builder = imageUrlBuilder(client);
@@ -36,11 +37,21 @@ export default function Gig(props: Props) {
         </h1>
         {imageSource && (
           <div
-            style={{ backgroundImage: `url(${imageSource})` }}
             className="
               pointer-events-none fixed w-full h-full top-0 right-0 bottom-0 left-0
               hidden opacity-0 animate-fadeIn
-              bg-center bg-cover peer-hover:block peer-hover:opacity-100"></div>
+              peer-hover:block peer-hover:opacity-100">
+            <Image
+              src={imageSource.url()}
+              layout="fill"
+              objectFit="cover"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL={`/_next/image?url=${encodeURIComponent(imageSource.url())}&q=10&w=64`}
+              //style={{ objectFit: 'cover' }}
+              alt={`Image from concert ${gig.title}`}
+            />
+          </div>
         )}
       </div>
     </div>
