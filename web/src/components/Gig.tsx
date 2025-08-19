@@ -14,7 +14,7 @@ export default function Gig(props: Props) {
 
   return (
     <div className="py-4 text-center transition duration-200 select-none overflow-hidden hover:bg-zinc-800 px-4">
-      <div className="md:inline-block hover:text-amber-400 hover:cursor-horns">
+      <div className="gig-item md:inline-block hover:text-amber-400 hover:cursor-horns">
         <h2 className="flex justify-between gap-2 z-10">
           <small className="text-xs z-10">
             {new Intl.DateTimeFormat('nb-NO', {
