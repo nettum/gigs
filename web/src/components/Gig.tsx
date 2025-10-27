@@ -10,7 +10,11 @@ type Props = { gig: GigType };
 
 export default function Gig(props: Props) {
   const gig = props.gig;
-  const imageSource = gig.concertImage ? builder.image(gig.concertImage).width(1200) : null;
+  const [imageSourceDesktop, imageSourceMobile] = 
+  gig.concertImage ? [
+    builder.image(gig.concertImage).width(1920).height(1080).fit('crop').auto('format'),
+    builder.image(gig.concertImage).width(1080).height(1920).fit('crop').auto('format'),
+  ] : [null, null];
 
   return (
     <div className="py-4 text-center transition duration-200 select-none overflow-hidden hover:bg-zinc-800 px-4">
@@ -34,13 +38,17 @@ export default function Gig(props: Props) {
           transition-colors duration-200 ${inter.className}`}>
           {gig.title}
         </h1>
-        {imageSource && (
+        {imageSourceDesktop && (
           <div
-            style={{ backgroundImage: `url(${imageSource})` }}
+            style={{
+              '--bg-mobile': `url(${imageSourceMobile})`,
+              '--bg-desktop': `url(${imageSourceDesktop})`,
+            } as React.CSSProperties}
             className="
               pointer-events-none fixed w-full h-full top-0 right-0 bottom-0 left-0
               hidden opacity-0 animate-fadeIn
-              bg-center bg-cover peer-hover:block peer-hover:opacity-100"></div>
+              bg-center bg-cover peer-hover:block peer-hover:opacity-100
+              bg-[image:var(--bg-mobile)] md:bg-[image:var(--bg-desktop)]"></div>
         )}
       </div>
     </div>

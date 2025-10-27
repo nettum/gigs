@@ -30,6 +30,15 @@ export default {
       options: {
         hotspot: true,
       },
+      // thefuck https://www.sanity.io/docs/studio/image-type#a0a42b42f37b
+      // options: {
+      //   hotspot: {
+      //     previews: [
+      //       { title: 'Mobile 9:16', aspectRatio: 9 / 16 }, 
+      //       { title: 'Desktop 16:9', aspectRatio: 16 / 9 },
+      //     ],
+      //   },
+      // },
     },
     {
       title: "Artist",
