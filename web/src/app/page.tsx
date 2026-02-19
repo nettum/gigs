@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import { getAllGigs, getAllArtists, getAllEvents, getAllVenues } from '@/sanity/queries';
+
 import Homepage from './homepage';
 
 export default async function Page() {
@@ -9,5 +11,9 @@ export default async function Page() {
     await getAllEvents(),
   ]);
 
-  return <Homepage gigs={gigs} artists={artists} venues={venues} events={events} />
+  return (
+    <Suspense>
+      <Homepage gigs={gigs} artists={artists} venues={venues} events={events} />
+    </Suspense>
+  );
 }
