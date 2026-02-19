@@ -4,7 +4,6 @@ import { useState, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Gigs from '@/components/Gigs';
-import GigImageOverlay from '@/components/GigImageOverlay';
 import Menu from '@/components/Menu';
 import Search from '@/components/Search';
 
@@ -102,11 +101,8 @@ export default function Homepage(props: HomePageProps) {
     yearList.push(i);
   }
 
-  const [activeGig, setActiveGig] = useState<GigType | null>(null);
-
   return (
     <div className="relative w-full min-h-lvh text-amber-200 overflow-hidden">
-      <GigImageOverlay gig={activeGig} />
       <div className="absolute left-0 top-0 p-4 md:px-8 text-base z-10">
         # gigs: {filteredGigs.length}
       </div>
@@ -122,7 +118,7 @@ export default function Homepage(props: HomePageProps) {
           onSetFilter={handleFilter}
         />
       </div>
-      <Gigs gigs={filteredGigs} onSetActiveGig={setActiveGig} activeGig={activeGig} />
+      <Gigs gigs={filteredGigs} />
     </div>
   );
 }
