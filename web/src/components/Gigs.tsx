@@ -31,7 +31,7 @@ function reducer(state: State, action: Action): State {
     case 'focus':           return { ...state, focused: action.gig, overlay: action.gig, unfocusing: false };
     case 'unfocus':         return { ...state, focused: null, unfocusing: true };
     case 'doneUnfocusing':  return { ...state, unfocusing: false };
-    case 'reset':           return { hovered: state.hovered, focused: null, overlay: state.hovered, unfocusing: false };
+    case 'reset':           return { hovered: state.hovered, focused: null, overlay: state.overlay, unfocusing: false };
   }
 }
 
