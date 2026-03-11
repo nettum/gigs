@@ -17,10 +17,11 @@ export default memo(function Gig({ gig, isActive, onActivate, onDeactivate, onCl
   return (
     <div
       onClick={() => onClick(gig)}
-      onMouseEnter={() => onActivate(gig)}
-      onMouseLeave={onDeactivate}
-      className="group py-4 text-center transition duration-200 select-none overflow-hidden px-4 hover:cursor-horns">
-      <div className={`gig-item md:inline-block group-hover:text-amber-400 -my-4 py-4 transition-opacity duration-300 ease-out ${isActive ? '!opacity-100' : ''}`}>
+      className="group py-4 text-center transition duration-200 select-none overflow-hidden px-4">
+      <div
+        onMouseEnter={() => onActivate(gig)}
+        onMouseLeave={onDeactivate}
+        className={`gig-item md:inline-block hover:text-amber-400 hover:cursor-horns -my-4 py-4 transition-opacity duration-300 ease-out ${isActive ? '!opacity-100 text-amber-400' : ''}`}>
         <h2 className="flex justify-between gap-2 z-10">
           <small className="text-xs z-10">
             {new Intl.DateTimeFormat('nb-NO', {
