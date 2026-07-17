@@ -3,6 +3,8 @@ import { getAllGigs, getAllArtists, getAllEvents, getAllVenues } from '@/sanity/
 
 import Homepage from './homepage';
 
+export const revalidate = 300;
+
 export default async function Page() {
   const [gigs, artists, venues, events] = await Promise.all([
     await getAllGigs(),
