@@ -13,7 +13,6 @@ type State = {
   hovered: GigType | null;
   focused: GigType | null;
   overlay: GigType | null;
-  unfocusing: boolean;
 };
 
 type Action =
@@ -21,33 +20,25 @@ type Action =
   | { type: 'leave' }
   | { type: 'focus'; gig: GigType }
   | { type: 'unfocus' }
-  | { type: 'doneUnfocusing' }
   | { type: 'reset' };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'hover':           return { ...state, hovered: action.gig, overlay: action.gig, unfocusing: false };
-    case 'leave':           return { ...state, hovered: null };
-    case 'focus':           return { ...state, focused: action.gig, overlay: action.gig, unfocusing: false };
-    case 'unfocus':         return { ...state, focused: null, unfocusing: true };
-    case 'doneUnfocusing':  return { ...state, unfocusing: false };
-    case 'reset':           return { hovered: state.hovered, focused: null, overlay: state.overlay, unfocusing: false };
+    case 'hover':   return { ...state, hovered: action.gig, overlay: action.gig };
+    case 'leave':   return { ...state, hovered: null };
+    case 'focus':   return { ...state, focused: action.gig, overlay: action.gig };
+    case 'unfocus': return { ...state, focused: null };
+    case 'reset':   return { hovered: state.hovered, focused: null, overlay: state.overlay };
   }
 }
 
 export default function Gigs({ gigs }: GigsProps) {
-  const [{ hovered, focused, overlay, unfocusing }, dispatch] = useReducer(reducer, {
-    hovered: null, focused: null, overlay: null, unfocusing: false,
+  const [{ hovered, focused, overlay }, dispatch] = useReducer(reducer, {
+    hovered: null, focused: null, overlay: null,
   });
   const deactivateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => { dispatch({ type: 'reset' }); }, [gigs]);
-
-  useEffect(() => {
-    if (!unfocusing) return;
-    const timer = setTimeout(() => dispatch({ type: 'doneUnfocusing' }), 700);
-    return () => clearTimeout(timer);
-  }, [unfocusing]);
 
   const handleActivate = useCallback((gig: GigType) => {
     if (deactivateTimer.current) clearTimeout(deactivateTimer.current);
@@ -67,7 +58,7 @@ export default function Gigs({ gigs }: GigsProps) {
   }, []);
 
   const displayedGig = focused ?? hovered;
-  const isDimmed = !!focused || unfocusing || !!displayedGig;
+  const isDimmed = !!displayedGig;
 
   return (
     <>
